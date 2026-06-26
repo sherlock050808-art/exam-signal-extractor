@@ -1,161 +1,164 @@
-# Open Book Exam Assistant（开卷闭卷考试助手）
+> 中文版请见 [`README.zh-CN.md`](README.zh-CN.md)
 
-> 版本：v2.0  
-> 核心升级：从“怎么做复习资料”重新定义为“**如何从海量教学信息中提取对考试最有预测价值的信号**”。
+# Exam Signal Extractor
 
-这是一套可复用的考试复习方法论仓库，帮助你把课堂录音、课件、随堂练习等零散信息，整理成一张高命中率的“七层考试地图”，再针对开卷或闭卷考试生成可直接上考场的复习资料。
+> Version: v2.0  
+> Core upgrade: Redefined from "how to make review materials" to "**how to extract the most predictive exam signals from massive teaching information**".
 
----
-
-## 项目简介
-
-**这不是题库**，也不 memorizes 具体题目。它沉淀的是一套“信号 > 内容”的考试准备工作流：
-
-- **信号源**：课堂录音 / 录屏转录文本、老师划重点、课件标题、往年题。
-- **输出物**：七层考试地图 + 名词解释清单 + 简答题 + 综合分析题 + 索引。
-- **适用对象**：想系统化备考、愿意花 2–4 小时前置整理、希望把复习精力投到“最可能考”的内容上的同学。
-
-> **关键认知**：录音决定考试范围，PPT/课件填充知识内容。不要把二者等权处理。
+This is a reusable exam-preparation methodology repository. It helps you turn fragmented information—such as classroom recordings, lecture slides, and in-class exercises—into a high-hit-rate "seven-layer exam map", and then generate exam-ready review materials for either open-book or closed-book exams.
 
 ---
 
-## 核心方法论
+## Project Introduction
 
-### 1. 从课堂录音中提取考试信号
+**This is not a question bank**, nor does it memorize specific exam questions. It distills a "signal > content" workflow for exam preparation:
 
-老师关于考试的话，预测价值往往远高于知识本身。本方法把原始转录文本经过 6 步处理：
+- **Signal sources**: Classroom recordings / screen-capture transcripts, teacher highlights, slide titles, past exam questions.
+- **Outputs**: Seven-layer exam map + term-definition list + short-answer questions + comprehensive analysis questions + index.
+- **Target users**: Students who want systematic exam preparation, are willing to spend 2–4 hours on upfront organization, and want to focus review effort on the content most likely to appear on the exam.
+
+> **Key insight**: Recordings define the exam scope; slides/courseware fill in the content. Do not treat them equally.
+
+---
+
+## Core Methodology
+
+### 1. Extracting Exam Signals from Classroom Recordings
+
+What teachers say about the exam is often far more predictive than the knowledge itself. This methodology processes raw transcripts through six steps:
 
 ```text
-原始转录文本
-  ├── 步骤1 硬过滤：删除元数据、语气词、课堂动作等确定性噪声
-  ├── 步骤2 话题切分：按主题切成 15–20 段
-  ├── 步骤3 意图单元合并+粗分类：把连续句子合并为“意图单元”
-  ├── 步骤4 精细提取：提取知识点、题型、确定性、答题要点
-  ├── 步骤5 课件对照验证：把课件标题级内容升入考点
-  └── 步骤6 输出考试地图：按七层结构重组
+Raw transcript
+  ├── Step 1 Hard filtering: remove deterministic noise (metadata, fillers, classroom actions)
+  ├── Step 2 Topic segmentation: split into 15–20 topic segments
+  ├── Step 3 Intent-unit merging + coarse classification: merge consecutive sentences into "intent units"
+  ├── Step 4 Fine-grained extraction: extract knowledge points, question types, certainty, answer keys
+  ├── Step 5 Courseware cross-check: promote slide-title-level content into exam scope
+  └── Step 6 Output exam map: reorganize by the seven-layer structure
 ```
 
-详细步骤见 [`docs/methodology/extracting-exam-signals-from-recordings.md`](docs/methodology/extracting-exam-signals-from-recordings.md)。
+For details, see [`docs/methodology/extracting-exam-signals-from-recordings.md`](docs/methodology/extracting-exam-signals-from-recordings.md).
 
-### 2. 七层考试地图
+### 2. Seven-Layer Exam Map
 
-同一套七层框架同时服务开卷和闭卷考试，差异只在于各层的**覆盖深度**和**投入权重**。
+The same seven-layer framework serves both open-book and closed-book exams; the difference lies in the **depth of coverage** and **weight allocation** for each layer.
 
-| 层次 | 含义 |
-|------|------|
-| 🟢 必考层 | 老师明确强调、极大概率会考的考点 |
-| 🟡 高概率层 | 多次暗示、结构性重点、往年高频的考点 |
-| 🟠 可能层 | 课件标题级概念、老师随口提到但不确定的内容 |
-| 🔴 排除层 | 明确不考的内容，节省复习精力 |
-| ⚡ 陷阱区 | 易混淆概念、常见错误、区分方式 |
-| 🔗 融合区 | 跨章节组合，可能出综合分析题的考点对 |
-| ❓ 待确认 | 信息不足，需要考前确认或人工判定的条目 |
+| Layer | Meaning |
+|-------|---------|
+| 🟢 Must-appear | Points the teacher explicitly emphasized and are very likely to be tested |
+| 🟡 High-probability | Repeated hints, structural highlights, or frequently tested points |
+| 🟠 Possible | Slide-title-level concepts or things the teacher mentioned casually but uncertainly |
+| 🔴 Excluded | Content explicitly stated as not being tested, saving review effort |
+| ⚡ Traps | Easily confused concepts, common mistakes, and ways to distinguish them |
+| 🔗 Fusion | Cross-chapter combinations that may appear as comprehensive analysis questions |
+| ❓ To be confirmed | Insufficient information; needs confirmation before the exam or manual judgment |
 
-模板见 [`templates/exam-map-template.md`](templates/exam-map-template.md)。
+Template: [`templates/exam-map-template.md`](templates/exam-map-template.md).
 
-### 3. 开卷 vs 闭卷策略
+### 3. Open-Book vs. Closed-Book Strategy
 
-两种考试形式共用同一张地图，但资料形态不同：
+Both exam formats share the same map, but the resulting materials differ:
 
-| 维度 | 开卷考试 | 闭卷考试 |
-|------|----------|----------|
-| 资料厚度 | 厚，但必须可检索 | 薄，按七层分层清晰 |
-| 记忆强度 | 以识别和定位为主 | 以默写和调用为主 |
-| 前置页 | 考试地图 + 快速索引 | 题型分布（推荐）或目录 |
-| 必考层 | 完整答案 + 索引定位 + 快速照抄 | 完整记忆 + 能默写 |
-| 高概率层 | 完整答案 + 索引定位 | 重点记忆采分点 + 能展开 |
+| Dimension | Open-Book Exam | Closed-Book Exam |
+|-----------|----------------|------------------|
+| Material thickness | Thick, but must be searchable | Thin, clearly layered by the seven layers |
+| Memory intensity | Recognition and location | Recitation and recall |
+| Front page | Exam map + quick index | Question-type distribution (recommended) or table of contents |
+| Must-appear layer | Full answers + index + quick copying | Full memorization + able to write from memory |
+| High-probability layer | Full answers + index | Memorize scoring points + able to expand |
 
-完整策略见：
+Full strategies:
 - [`docs/methodology/open-book-strategy.md`](docs/methodology/open-book-strategy.md)
 - [`docs/methodology/closed-book-strategy.md`](docs/methodology/closed-book-strategy.md)
 
 ---
 
-## 使用流程
+## Usage Flow
 
-### 方式一：让 AI 读取 Skill 文档（推荐）
+### Option 1: Let an AI read the Skill document (recommended)
 
-把 [`docs/SKILL.md`](docs/SKILL.md) 提供给 Kimi / Claude 等支持长上下文的助手，然后说：
+Feed [`docs/SKILL.md`](docs/SKILL.md) to a long-context assistant such as Kimi or Claude, then say:
 
-> “按这个帮我准备《XXX》考试，这是课堂录音转录文本和课件。”
+> "Help me prepare for the [XXX] exam using this. Here is the classroom recording transcript and the courseware."
 
-AI 会自动确认考试形式、执行六步工作流、生成考试地图和复习资料。
+The AI will confirm the exam format, execute the six-step workflow, and generate the exam map and review materials.
 
-### 方式二：手动按工作流执行
+### Option 2: Execute the workflow manually
 
-1. 准备材料：课堂录音转录文本、课件 PDF/PPT、往年题（如有）。
-2. 阅读 [`docs/methodology/extracting-exam-signals-from-recordings.md`](docs/methodology/extracting-exam-signals-from-recordings.md)。
-3. 按六步工作流提取信号，填写 [`templates/exam-map-template.md`](templates/exam-map-template.md)。
-4. 根据开卷/闭卷策略，套用 [`templates/`](templates/) 下的模板生成考场资料。
-5. 考前使用 [`checklists/pre-exam-checklist.md`](checklists/pre-exam-checklist.md) 检查。
-6. 考后填写 [`checklists/post-exam-checklist.md`](checklists/post-exam-checklist.md)，沉淀为 few-shot 样本。
+1. Prepare materials: classroom recording transcript, courseware PDF/PPT, past exam questions if available.
+2. Read [`docs/methodology/extracting-exam-signals-from-recordings.md`](docs/methodology/extracting-exam-signals-from-recordings.md).
+3. Extract signals by following the six steps and fill in [`templates/exam-map-template.md`](templates/exam-map-template.md).
+4. Based on open-book/closed-book strategy, apply templates under [`templates/`](templates/) to generate exam materials.
+5. Before the exam, use [`checklists/pre-exam-checklist.md`](checklists/pre-exam-checklist.md).
+6. After the exam, fill in [`checklists/post-exam-checklist.md`](checklists/post-exam-checklist.md) to accumulate few-shot samples.
 
-### 方式三：只看模板快速上手
+### Option 3: Quick start with templates only
 
-如果你只需要一个格式参考，直接打开 [`templates/`](templates/) 和 [`examples/`](examples/)，照葫芦画瓢即可。
+If you only need a format reference, open [`templates/`](templates/) and [`examples/`](examples/) directly and follow the patterns.
 
 ---
 
-## 目录说明
+## Directory Structure
 
 ```text
-open-book-exam-assistant/
-├── README.md                                    # 本文件
-├── LICENSE                                      # MIT 许可证
-├── .gitignore                                   # Git 忽略规则
+exam-signal-extractor/
+├── README.md                                    # This file
+├── README.zh-CN.md                              # Chinese version
+├── LICENSE                                      # MIT License
+├── .gitignore                                   # Git ignore rules
 ├── docs/
-│   ├── SKILL.md                                 # 可直接给 AI 读取的 Skill 调用文档
+│   ├── SKILL.md                                 # Skill document for AI assistants
 │   └── methodology/
-│       ├── extracting-exam-signals-from-recordings.md  # v2.0 核心方法论
-│       ├── information-distillation-sop.md             # v1.0 历史版本 SOP
-│       ├── open-book-strategy.md                       # 开卷策略
-│       ├── closed-book-strategy.md                     # 闭卷策略
-│       └── post-exam-review-checklist.md               # 考后复盘清单（参考版）
+│       ├── extracting-exam-signals-from-recordings.md  # v2.0 core methodology
+│       ├── information-distillation-sop.md             # v1.0 historical SOP
+│       ├── open-book-strategy.md                       # Open-book strategy
+│       ├── closed-book-strategy.md                     # Closed-book strategy
+│       └── post-exam-review-checklist.md               # Post-exam review checklist (reference)
 ├── examples/
 │   └── consumer-goods-intelligent-equipment/
-│       ├── exam-map-example.md                  # 七层考试地图示例
-│       └── post-exam-review.md                  # 真实考后复盘
+│       ├── exam-map-example.md                  # Seven-layer exam map example
+│       └── post-exam-review.md                  # Real post-exam review
 ├── templates/
-│   ├── exam-map-template.md                     # 七层考试地图空白模板
-│   ├── term-definition-template.md              # 名词解释清单模板
-│   ├── short-answer-template.md                 # 简答题模板
-│   └── comprehensive-analysis-template.md       # 综合分析题模板
+│   ├── exam-map-template.md                     # Blank seven-layer exam map template
+│   ├── term-definition-template.md              # Term-definition list template
+│   ├── short-answer-template.md                 # Short-answer question template
+│   └── comprehensive-analysis-template.md       # Comprehensive analysis question template
 └── checklists/
-    ├── pre-exam-checklist.md                    # 考前检查清单
-    └── post-exam-checklist.md                   # 考后复盘清单
+    ├── pre-exam-checklist.md                    # Pre-exam checklist
+    └── post-exam-checklist.md                   # Post-exam review checklist
 ```
 
 ---
 
-## 贡献方式
+## Contributing
 
-欢迎贡献你的考试地图、复盘、模板改进或翻译！
+Contributions of exam maps, post-exam reviews, template improvements, or translations are welcome!
 
-1. **Fork 本仓库**。
-2. 在 `examples/` 下新增你的学科案例（建议用英文目录名，如 `advanced-mathematics/`）。
-3. 如果某种题型或老师的出题模式反复出现，更新 `templates/` 或 `checklists/`。
-4. 提交 Pull Request，说明你的改进点和验证结果（例如“本次考试命中了 8/10 个考点”）。
+1. **Fork this repository**.
+2. Add your subject case under `examples/` (use lowercase English directory names, e.g., `advanced-mathematics/`).
+3. If a certain question type or teacher pattern appears repeatedly, update `templates/` or `checklists/`.
+4. Submit a Pull Request describing your improvement and validation results (e.g., "This exam hit 8/10 predicted points").
 
-贡献时请遵守：
-- 不要上传具体考题原文，避免版权问题。
-- 分享的是**方法、模板、结构化的复盘**，而不是原始试卷。
-- 保持中文内容，文件路径建议使用英文小写 + 连字符。
-
----
-
-## 许可证声明
-
-本项目采用 [MIT License](LICENSE) 开源。你可以自由使用、修改、分发，但请保留版权声明。
+When contributing, please:
+- Do not upload original exam questions to avoid copyright issues.
+- Share **methodologies, templates, and structured reviews**, not raw exam papers.
+- Keep Chinese content as needed; file paths should use lowercase English with hyphens.
 
 ---
 
-## 快速开始
+## License
 
-如果你是第一次使用，建议按下面顺序阅读：
+This project is open-sourced under the [MIT License](LICENSE). You are free to use, modify, and distribute it, provided that the copyright notice is retained.
+
+---
+
+## Quick Start
+
+If this is your first time, read in this order:
 
 1. [`docs/methodology/extracting-exam-signals-from-recordings.md`](docs/methodology/extracting-exam-signals-from-recordings.md)
 2. [`examples/consumer-goods-intelligent-equipment/post-exam-review.md`](examples/consumer-goods-intelligent-equipment/post-exam-review.md)
 3. [`templates/exam-map-template.md`](templates/exam-map-template.md)
 4. [`checklists/pre-exam-checklist.md`](checklists/pre-exam-checklist.md)
 
-祝你考试顺利，命中率拉满！
+Good luck on your exams—may your hit rate be high!
