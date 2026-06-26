@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: General Discussion
+    url: https://github.com/sherlock050808-art/exam-signal-extractor/discussions
+    about: 对于一般性讨论、使用经验交流，请使用 Discussions
