@@ -35,6 +35,7 @@ notes-private/
 
 # AI / scan artifacts
 .understand-anything-scan.json
+.understand-anything/
 
 # Node / Python environments
 node_modules/
