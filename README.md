@@ -2,12 +2,23 @@
 
 # Exam Signal Extractor
 
-> Version: v2.0  
-> Core upgrade: Redefined from "how to make review materials" to "**how to extract the most predictive exam signals from massive teaching information**".
+> Version: v2.0 (with v3.0 preview in [`portfolio-v3/`](portfolio-v3/))  
+> Core upgrade: Redefined from "how to make review materials" to "**how to extract the most predictive exam signals from massive teaching information**".  
+> v3.0 preview: Separates **exam-intent processing** from **exam-content structuring** using Knowledge Nodes as queryable entry points, while reusing the proven v2.0 output templates.
 
 This is a reusable exam-preparation methodology repository. It helps you turn fragmented information—such as classroom recordings, lecture slides, and in-class exercises—into a high-hit-rate "seven-layer exam map", and then generate exam-ready review materials for either open-book or closed-book exams.
 
 ---
+
+## Version Roadmap
+
+| Version | Focus | Location |
+|---------|-------|----------|
+| v1.0 | Information distillation SOP (historical) | [`docs/methodology/information-distillation-sop.md`](docs/methodology/information-distillation-sop.md) |
+| v2.0 | Extract exam signals from classroom recordings; seven-layer exam map; open/closed-book strategies | [`docs/SKILL.md`](docs/SKILL.md) and [`docs/methodology/`](docs/methodology/) |
+| **v3.0 (preview)** | Separate exam-intent and exam-content processing; Knowledge Nodes as queryable entry points; reuse v2.0 output templates | [`portfolio-v3/`](portfolio-v3/) |
+
+v3.0 does **not** replace v2.0; it adds a structured data layer so that the same methodology can be maintained across multiple courses and exam cycles.
 
 ## Project Introduction
 
@@ -75,7 +86,15 @@ Full strategies:
 
 ## Usage Flow
 
-### Option 1: Let an AI read the Skill document (recommended)
+### Option 1: Let an AI read the v3.0 Skill document (recommended for iterative use)
+
+Feed [`portfolio-v3/SKILL.md`](portfolio-v3/SKILL.md) to a long-context assistant such as Kimi or Claude, then say:
+
+> "Help me prepare for the [XXX] exam using this. Here is the classroom recording transcript, the courseware, and the syllabus."
+
+The AI will separate exam-intent processing from exam-content structuring, build a Knowledge Node tree, and generate closed-book or open-book materials.
+
+### Option 2: Let an AI read the v2.0 Skill document (recommended for one-off quick preparation)
 
 Feed [`docs/SKILL.md`](docs/SKILL.md) to a long-context assistant such as Kimi or Claude, then say:
 
@@ -83,7 +102,7 @@ Feed [`docs/SKILL.md`](docs/SKILL.md) to a long-context assistant such as Kimi o
 
 The AI will confirm the exam format, execute the six-step workflow, and generate the exam map and review materials.
 
-### Option 2: Execute the workflow manually
+### Option 3: Execute the workflow manually
 
 1. Prepare materials: classroom recording transcript, courseware PDF/PPT, past exam questions if available.
 2. Read [`docs/methodology/extracting-exam-signals-from-recordings.md`](docs/methodology/extracting-exam-signals-from-recordings.md).
@@ -92,7 +111,7 @@ The AI will confirm the exam format, execute the six-step workflow, and generate
 5. Before the exam, use [`checklists/pre-exam-checklist.md`](checklists/pre-exam-checklist.md).
 6. After the exam, fill in [`checklists/post-exam-checklist.md`](checklists/post-exam-checklist.md) to accumulate few-shot samples.
 
-### Option 3: Quick start with templates only
+### Option 4: Quick start with templates only
 
 If you only need a format reference, open [`templates/`](templates/) and [`examples/`](examples/) directly and follow the patterns.
 
@@ -106,6 +125,13 @@ exam-signal-extractor/
 ├── README.zh-CN.md                              # Chinese version
 ├── LICENSE                                      # MIT License
 ├── .gitignore                                   # Git ignore rules
+├── portfolio-v3/                                # v3.0 skill preview: intent/content separation + Knowledge Nodes
+│   ├── README.md                                # v3.0 overview
+│   ├── SKILL.md                                 # v3.0 skill document for AI assistants
+│   ├── references/                              # v3.0 methodology and v2.0/v1.0 references
+│   ├── templates/                               # v3.0 node schema and closed-book workflow templates
+│   ├── examples/                                # v3.0 worked example (CNC technology)
+│   └── checklists/                              # Pre-exam and post-exam checklists (v2.0)
 ├── docs/
 │   ├── SKILL.md                                 # Skill document for AI assistants
 │   └── methodology/
